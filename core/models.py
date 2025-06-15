@@ -15,7 +15,7 @@ class Student(models.Model):
     ]
     full_name = models.CharField(max_length=200, null=False, blank=False, verbose_name="Student Full Name")
     email = models.CharField(max_length=100, unique=True, null=False, blank=False, verbose_name="Student Email")
-    semester = models.Field(choices=SEMESTER, default='N/A', null=True, blank=True)
+    semester = models.CharField(max_length=20,choices=SEMESTER, default='N/A', null=True, blank=True)
     phone_no = models.IntegerField(null=False,blank=False)
     user = models.OneToOneField(User,on_delete=models.CASCADE)
 
@@ -38,7 +38,7 @@ class Teacher(models.Model):
     }
     full_name = models.CharField(max_length=200, null=False, blank=False, verbose_name="teacher Full Name")
     email = models.CharField(max_length=100, unique=True, null=False, blank=False, verbose_name="teacher Email")
-    department = models.Field(choices=DEPARTMENT, default='N/A', null=True, blank=True)
+    department = models.CharField(max_length=20,choices=DEPARTMENT, default='N/A', null=True, blank=True)
     phone_no = models.IntegerField(null=False,blank=False)
     join_data = models.DateField(default='Join Data')
     user = models.OneToOneField(User,on_delete=models.CASCADE)
@@ -52,4 +52,24 @@ class Teacher(models.Model):
 
         def __str__(self):
             return self.full_name
+class Assignment(models.Model):
+    title = models.CharField(max_length=100,null=False,verbose_name='Assignment Title')
+    start_date = models.DateField(default='Start_Date',null=False,blank=False,verbose_name='Start_Date')
+    end_date = models.DateField(default='END_Date',null=False,blank=False,verbose_name='End_Date')
+    question_file = models.FileField(upload_to='assignments/question/',null=True,blank=True,verbose_name='select_Assignment_file')
+    question = models.TextField(null=True,blank=True,verbose_name='Assignment_Question')
+    remark = models.CharField(max_length=100,null=False,blank=False,verbose_name='Assignment Details')
+    full_mark = models.FloatField(blank=False,null=False)
+    teacher =models.ForeignKey(Teacher,on_delete=models.CASCADE,verbose_name='Uploaded By')
+
+
+    class meta:
+        Verbose_name = 'assignment'
+        Verbose_name = 'assignments'
+        ordering =['-title']
+
+    def __str__(self):
+            return self.title
             
+
+
