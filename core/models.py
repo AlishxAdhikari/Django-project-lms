@@ -65,7 +65,7 @@ class Assignment(models.Model):
 
     class meta:
         Verbose_name = 'assignment'
-        Verbose_name = 'assignments'
+        Verbose_name_plural = 'assignments'
         ordering =['-title']
 
     def __str__(self):
@@ -85,7 +85,7 @@ class Material(models.Model):
 
     class meta:
         Verbose_name = 'material'
-        Verbose_name = 'materials'
+        Verbose_name_plural = 'materials'
         ordering =['-title']
 
     def __str__(self):
