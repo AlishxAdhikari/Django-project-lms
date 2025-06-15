@@ -70,6 +70,27 @@ class Assignment(models.Model):
 
     def __str__(self):
             return self.title
+    
+
+
+class Material(models.Model):
+    
+    title = models.CharField(max_length=100,null=False,verbose_name='Material Title')
+    subject = models.CharField(max_length=100,null=False,verbose_name='Subject')
+    description = models.CharField(max_length=255,null=True,blank=True,verbose_name='Description of Material')
+    uploaded_date = models.DateField(default='Uploaded_Date',null=False,blank=False,verbose_name='Uploaded_Date')
+    teacher =models.ForeignKey(Teacher,on_delete=models.CASCADE,verbose_name='Uploaded By')
+    
+
+
+    class meta:
+        Verbose_name = 'material'
+        Verbose_name = 'materials'
+        ordering =['-title']
+
+    def __str__(self):
+            return self.title
+   
             
 
 
