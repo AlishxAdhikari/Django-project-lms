@@ -1,5 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
+
+
+SUBJECT = [
+    {'BCTOO1','Software Engineering'},
+    {'BCT002','System Analysis and Design'},
+    {'BCT003','Data Structure'},
+    {'BCT004','Data Communication'},
+    {'BCT005','Mathematics'},
+
+
+]
 
 # Create your models here.
 class Student(models.Model):
@@ -19,15 +31,15 @@ class Student(models.Model):
     phone_no = models.IntegerField(null=False,blank=False)
     user = models.OneToOneField(User,on_delete=models.CASCADE)
 
-    class meta:
+    class Meta:
         verbose_name = "student"
         verbose_name_plural = "students"
         ordering =['-full_name']
 
 
 
-        def __str__(self):
-            return self.full_name
+    def __str__(self):
+        return self.full_name
         
 class Teacher(models.Model):
     DEPARTMENT = {
@@ -43,15 +55,16 @@ class Teacher(models.Model):
     join_data = models.DateField(default='Join Data')
     user = models.OneToOneField(User,on_delete=models.CASCADE)
 
-    class meta:
+    class Meta:
         verbose_name = "teacher"
         verbose_name_plural = "teachers"
         ordering =['-full_name']
+        
 
+    def __str__(self):
+        return self.full_name
+        
 
-
-        def __str__(self):
-            return self.full_name
 class Assignment(models.Model):
     title = models.CharField(max_length=100,null=False,verbose_name='Assignment Title')
     start_date = models.DateField(default='Start_Date',null=False,blank=False,verbose_name='Start_Date')
@@ -61,36 +74,48 @@ class Assignment(models.Model):
     remark = models.CharField(max_length=100,null=False,blank=False,verbose_name='Assignment Details')
     full_mark = models.FloatField(blank=False,null=False)
     teacher =models.ForeignKey(Teacher,on_delete=models.CASCADE,verbose_name='Uploaded By')
+    subject = models.CharField(max_length=100,default='N/A',choices=SUBJECT,verbose_name='Subject')
 
 
-    class meta:
-        Verbose_name = 'assignment'
-        Verbose_name_plural = 'assignments'
+    class Meta:
+        verbose_name = 'assignment'
+        verbose_name_plural = 'assignments'
         ordering =['-title']
 
     def __str__(self):
-            return self.title
+        return self.title
     
 
 
 class Material(models.Model):
+
+    MATERIAL_CATEGORY = [
+        {'SLIDE','Chapter Slide'},
+        {'TEXT_BOOK','A text book'},
+        {'REFERENCE_BOOK','A reference boook'},
+        {'OLD_QUESTION','Precious board exam question'},
+        {'AUDIO_BOOK','An audio book'},
+    ]
     
     title = models.CharField(max_length=100,null=False,verbose_name='Material Title')
-    subject = models.CharField(max_length=100,null=False,verbose_name='Subject')
-    description = models.CharField(max_length=255,null=True,blank=True,verbose_name='Description of Material')
+    category = models.CharField(max_length=30,choices=  MATERIAL_CATEGORY,null=False,blank=False,default='N/A',verbose_name='select category')
+    subject = models.CharField(max_length=100,default='N/A',choices=SUBJECT,verbose_name='Subject')
+    description = models.CharField(max_length=255,default='description',null=True,blank=True,verbose_name='Description of Material')
     uploaded_date = models.DateField(default='Uploaded_Date',null=False,blank=False,verbose_name='Uploaded_Date')
-    teacher =models.ForeignKey(Teacher,on_delete=models.CASCADE,verbose_name='Uploaded By')
+    teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,verbose_name='Uploaded By',default='N/A')
+    Material_file = models.FileField(upload_to='material',default='N/A',null=True,blank=True,verbose_name='select file')
     
 
 
-    class meta:
-        Verbose_name = 'material'
-        Verbose_name_plural = 'materials'
+    class Meta:
+        verbose_name = 'material'
+        verbose_name_plural = 'materials'
         ordering =['-title']
 
     def __str__(self):
-            return self.title
+        return self.title
    
             
 
 
+    
