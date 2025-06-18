@@ -52,7 +52,7 @@ class Teacher(models.Model):
     email = models.CharField(max_length=100, unique=True, null=False, blank=False, verbose_name="teacher Email")
     department = models.CharField(max_length=20,choices=DEPARTMENT, default='N/A', null=True, blank=True)
     phone_no = models.IntegerField(null=False,blank=False)
-    join_data = models.DateField(default='Join Data')
+    join_date = models.DateField(default='Join Date')
     user = models.OneToOneField(User,on_delete=models.CASCADE)
 
     class Meta:
