@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<section class ='container'>
+    {% if user.is_authenticated %}
+    <h2>welcome  {{ user.username }}</h2>
+    <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+
+    {% else %}
+
+       
+
+       <h2>Please log in to view your profile information.</h2>
+
+   {% endif %}
+
+</section>
+
+
+{% endblock %}
