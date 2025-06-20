@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from core.models import Teacher, Student, Assignment, Material
 from django.urls import reverse_lazy
-from core.forms import TeacherForm
+from core.forms import TeacherForm, AssignmentForm
 from django.contrib.auth.mixins import LoginRequiredMixin # this package is for class based views
 # from django.contrib.auth.decorators import login_required - this package is for function based views
 
@@ -96,8 +96,10 @@ class AssignmentListView(LoginRequiredMixin, ListView):
 
 class AssignmentCreateView(LoginRequiredMixin, CreateView):
     model = Assignment
-    fields = ['title','question','question_file' ,'start_date', 'end_date', 'full_mark','remark','teacher', 'subject']
+    form_class = AssignmentForm
     template_name = 'assignments/assignment_form.html'
+    
+    
     success_url = reverse_lazy('assignment.index')
 
 class AssignmentDetailView(LoginRequiredMixin, DetailView):
@@ -108,8 +110,7 @@ class AssignmentDetailView(LoginRequiredMixin, DetailView):
 
 class AssignmentUpdateView(LoginRequiredMixin, UpdateView):
     model = Assignment
-    # form_class = AssignmentForm
-    fields = ['title','question','question_file' ,'start_date', 'end_date', 'full_mark','remark','teacher', 'subject']
+    form_class = AssignmentForm
     template_name = 'assignments/assignment_form.html'
     success_url = reverse_lazy('assignment.index')
 

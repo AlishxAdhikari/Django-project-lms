@@ -1,5 +1,5 @@
 from django import forms
-from core.models import Teacher
+from core.models import Teacher, Student, Assignment
 
 class TeacherForm(forms.ModelForm):
     class Meta:
@@ -8,3 +8,12 @@ class TeacherForm(forms.ModelForm):
         widgets = {
             'join_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         } 
+
+class AssignmentForm(forms.ModelForm):
+    class Meta:
+        model = Assignment
+        fields = ['title','question','question_file' ,'start_date', 'end_date', 'full_mark','remark','teacher', 'subject']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }   
