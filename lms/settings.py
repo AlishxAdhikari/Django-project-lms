@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 # login and logout redirect URLs
 LOGIN_REDIRECT_URL = 'profile'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Application definition
