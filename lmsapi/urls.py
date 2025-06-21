@@ -1,0 +1,16 @@
+from django.urls import path
+from lmsapi.views import TeacherApiView,StudentSerializer,TeacherListCreateAPIView
+
+
+urlpatterns = [
+   
+    path('teacher/<int:pk>/detail/', TeacherApiView.as_view(), name='api.teacher.detail'),
+    path('teacher/<int:pk>/update/', TeacherApiView.as_view(), name='api.teacher.update'),
+    path('teacher/<int:pk>/delete/', TeacherApiView.as_view(), name='api.teacher.delete'),
+    path('teacher/<int:pk>/edit/', TeacherApiView.as_view(), name='api.teacher.edit'),
+    # teacher api: list and create
+    path('teacher/list/',TeacherListCreateAPIView.as_view(), name='api.teacher.list'),
+    path('teacher/create/', TeacherListCreateAPIView.as_view(), name='api.teacher.create'),
+
+]
+
